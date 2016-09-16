@@ -41,6 +41,9 @@ URL = 'https://s3.amazonaws.com/morphrecog-images-1/' + all_names[0]
 file = cStringIO.StringIO(urllib.urlopen(URL).read())
 im = Image.open(file)
 
+# give user feedback about progress
+print 'loading ', all_names[0]
+
 # im = Image.open("original/car.png")
 # convert to array
 image = np.asarray(im)
