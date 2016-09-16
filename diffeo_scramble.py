@@ -8,6 +8,7 @@ plt = pyplot
 from PIL import Image
 from skimage.transform import PiecewiseAffineTransform, warp
 import urllib, cStringIO
+from time import gmtime, strftime
 
 # define image filenames
 cars = ['limoToSUV','limoToSedan','limoToSmart','smartToSedan','suvToSedan','suvToSmart'] 
@@ -42,7 +43,7 @@ file = cStringIO.StringIO(urllib.urlopen(URL).read())
 im = Image.open(file)
 
 # give user feedback about progress
-print 'loading ', all_names[0]
+print 'loading ', all_names[0], ' at ', strftime("%Y-%m-%d %H:%M:%S")
 
 # im = Image.open("original/car.png")
 # convert to array
