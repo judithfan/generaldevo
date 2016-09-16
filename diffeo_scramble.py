@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib
 from matplotlib import pylab,mlab,pyplot
 plt = pyplot
-from matplotlib.pyplot import imshow
+#from matplotlib.pyplot import imshow
 from PIL import Image
 from skimage.transform import PiecewiseAffineTransform, warp
 import urllib, cStringIO
