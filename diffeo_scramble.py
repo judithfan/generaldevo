@@ -66,12 +66,18 @@ for fn in all_names:
 	src_rows, src_cols = np.meshgrid(src_rows, src_cols)
 	src = np.dstack([src_cols.flat, src_rows.flat])[0]
 
-	# add cosine oscillation to row coordinates
-	dst_rows = src[:, 1] - np.random.randint(30,70,len(src[:, 1])) * \
-	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,15,len(src[:, 1])))
-	dst_cols = src[:, 0] 
+	# add cos oscillation to row and column coordinates
+	dst_rows = src[:, 1] - np.random.randint(40,60,len(src[:, 1])) * \
+	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
+	# dst_cols = src[:, 0] 
+	dst_cols = src[:, 0] - np.random.randint(40,60,len(src[:, 1])) * \
+	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
 	dst_rows *= 1.5
 	dst_rows -= 1.5 * 50
+
+	dst_cols *= 1.5
+	dst_cols -= 1.5 * 50
+
 	dst = np.vstack([dst_cols, dst_rows]).T
 
 	# derive transformation matrix
