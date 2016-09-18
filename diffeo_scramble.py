@@ -67,25 +67,19 @@ for fn in all_names:
 	src = np.dstack([src_cols.flat, src_rows.flat])[0]
 
 	# add cos oscillation to row and column coordinates
+	# add oscillation to row coordinates
 	dst_rows = src[:, 1] - np.random.randint(40,60,len(src[:, 1])) * \
-	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
-	# dst_cols = src[:, 0] 
+	               np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
 	dst_cols = src[:, 0] - np.random.randint(40,60,len(src[:, 1])) * \
-	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
-	dst_rows *= 1.5
-	dst_rows -= 1.5 * 50
-
-	dst_cols *= 1.5
-	dst_cols -= 1.5 * 50
-
+	               np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
 	dst = np.vstack([dst_cols, dst_rows]).T
 
 	# derive transformation matrix
 	tform = PiecewiseAffineTransform()
 	tform.estimate(src, dst)
 
-	out_rows = image.shape[0] - 1.5 * 50
-	out_cols = cols
+	out_rows = image.shape[0]
+	out_cols = image.shape[1]
 	out = warp(image, tform, output_shape=(out_rows, out_cols))
 
 	# turn black pixels gray
