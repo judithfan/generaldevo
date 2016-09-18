@@ -68,7 +68,7 @@ for fn in all_names:
 
 	# add cosine oscillation to row coordinates
 	dst_rows = src[:, 1] - np.random.randint(30,70,len(src[:, 1])) * \
-	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,10,len(src[:, 1])))
+	           np.cos(np.linspace(0, 3 * np.pi, src.shape[0]) + np.random.randint(1,15,len(src[:, 1])))
 	dst_cols = src[:, 0] 
 	dst_rows *= 1.5
 	dst_rows -= 1.5 * 50
