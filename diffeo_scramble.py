@@ -17,12 +17,12 @@ furniture = ['bedChair', 'bedTable', 'benchBed', 'chairBench','chairTable', 'tab
 # specify car inds
 car_inds = map(str,np.arange(0,100))
 car_inds = [i.zfill(2) for i in car_inds]
-inds = map(np.int,np.linspace(0,99,5)) ## subset car inds so as to not make overwhelmingly many of them
+inds = map(np.int,np.linspace(0,99,2)) ## subset car inds so as to not make overwhelmingly many of them
 car_inds = [car_inds[i] for i in inds]
 
 # specify furniture inds
 furniture_inds = map(str,np.arange(1,101))
-inds = map(np.int,np.linspace(0,99,5)) ## subset inds so as to not make overwhelmingly many of them
+inds = map(np.int,np.linspace(0,99,2)) ## subset inds so as to not make overwhelmingly many of them
 furniture_inds = [furniture_inds[i] for i in inds]
 
 #viewpoints = map(str,np.arange(0,40))
