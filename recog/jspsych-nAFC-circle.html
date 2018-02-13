@@ -43,19 +43,22 @@
                 './object/dogs_05_bloodhound_0035.png',
                 './object/dogs_06_bullmastiff_0035.png',
                 './object/dogs_07_goldenretriever_0035.png',
-                './object/dogs_08_pug_0035.png']   
+                './object/dogs_08_pug_0035.png']
 
 sketches = ['gameID_0075-ad14e50c-f328-451b-82b0-2a7d3b392127_trial_1.png']
 
   var trials = {
     type: 'nAFC-circle',
+    options: object_list,
+    sketch: './sketch/gameID_0075-ad14e50c-f328-451b-82b0-2a7d3b392127_trial_1.png',
     target: './object/birds_01_crow_0035.png',
     foil: './object/birds_02_pigeon_0035.png',
     fixation_image: './object/birds_03_robin_0035.png',
     objects: object_list,
     sketches: sketches,
+    circle_diameter: 500,
     target_present: [true, false, true, false],
-    set_size: [2,3,4,6]
+    set_size: [32,32,32,32]
   };
 
   function start(){

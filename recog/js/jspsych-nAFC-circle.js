@@ -4,9 +4,9 @@
  * Judy Fan
  *
  * displays a target image at center surrounded by several unique images
- * positioned equidistant from the target. 
+ * positioned equidistant from the target.
  * participant's goal is to click on the surround image that best matches the target.
- * 
+ *
  *
  * requires Snap.svg library (snapsvg.io)
  *
@@ -94,86 +94,32 @@
         }, trial.timing_fixation);
       }
 
-      function show_search_array() {
-
-        var search_array_images = [];
-
+      function show_object_array() {
+        var object_array_images = [];
         for (var i = 0; i < display_locs.length; i++) {
-
-          var which_image = (i == 0 && trial.target_present) ? trial.target : trial.foil;
-
-          var img = paper.image(which_image, display_locs[i][0], display_locs[i][1], trial.target_size[0], trial.target_size[1]);
-
-          search_array_images.push(img);
-
+          var img = paper.image(trial.options[i], display_locs[i][0], display_locs[i][1], trial.target_size[0], trial.target_size[1]);
+          object_array_images.push(img);
         }
-
         var trial_over = false;
 
         var after_response = function(info) {
-
           trial_over = true;
-
           var correct = 0;
-
-          if (info.key == trial.target_present_key && trial.target_present ||
-            info.key == trial.target_absent_key && !trial.target_present) {
+          if (info.clickedObj == trial.target) {
             correct = 1;
           }
-
           clear_display();
-
-          end_trial(info.rt, correct, info.key);
-
+          end_trial(info.rt, correct, info.clickedObj); // todo: define rt/clickedObj
         }
 
-        var valid_keys = [trial.target_present_key, trial.target_absent_key];
 
-        key_listener = jsPsych.pluginAPI.getKeyboardResponse(after_response, valid_keys, 'date', false);
-
-        if (trial.timing_max_search > -1) {
-
-          if (trial.timing_max_search == 0) {
-            if (!trial_over) {
-
-              jsPsych.pluginAPI.cancelKeyboardResponse(key_listener);
-
-              trial_over = true;
-
-              var rt = -1;
-              var correct = 0;
-              var key_press = -1;
-
-              clear_display();
-
-              end_trial(rt, correct, key_press);
-            }
-          } else {
-
-            setTimeout(function() {
-
-              if (!trial_over) {
-
-                jsPsych.pluginAPI.cancelKeyboardResponse(key_listener);
-
-                trial_over = true;
-
-                var rt = -1;
-                var correct = 0;
-                var key_press = -1;
-
-                clear_display();
-
-                end_trial(rt, correct, key_press);
-              }
-            }, trial.timing_max_search);
-          }
-        }
-
-        function clear_display() {
-          paper.clear();
-        }
+      function clear_display() {
+        paper.clear();
       }
+
+      }
+
+
 
 
       function end_trial(rt, correct, key_press) {
@@ -182,10 +128,10 @@
         var trial_data = {
           correct: correct,
           rt: rt,
-          key_press: key_press,
           locations: JSON.stringify(display_locs),
-          target_present: trial.target_present,
-          set_size: trial.set_size
+          sketch: trial.sketch,
+          target: trial.target
+
         };
 
         // this line merges together the trial_data object and the generic
