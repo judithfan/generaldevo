@@ -1,3 +1,5 @@
+#### to remove gray background pixels from image in target data directory ####
+
 import os
 
 if __name__ == '__main__':
