@@ -25,18 +25,15 @@
 
       for (var i = 0; i < trials.length; i++) {
         trials[i] = {};
-        trials[i].target_present = params.target_present[i];
         trials[i].set_size = params.set_size[i];
         trials[i].target = params.target;
         trials[i].foil = params.foil;
         trials[i].fixation_image = params.fixation_image;
-        trials[i].target_size = params.target_size || [50, 50];
+        trials[i].target_size = params.target_size || [100, 100];
         trials[i].fixation_size = params.fixation_size || [16, 16];
         trials[i].circle_diameter = params.circle_diameter || 250;
-        trials[i].target_present_key = params.target_present_key || 74;
-        trials[i].target_absent_key = params.target_absent_key || 70;
         trials[i].timing_max_search = (typeof params.timing_max_search === 'undefined') ? -1 : params.timing_max_search;
-        trials[i].timing_fixation = (typeof params.timing_fixation === 'undefined') ? 1000 : params.timing_fixation;
+        trials[i].timing_fixation = (typeof params.timing_fixation === 'undefined') ? 500 : params.timing_fixation;
         trials[i].options = params.options || ['./object/dogs_08_pug_0035.png'];
       }
 
@@ -61,7 +58,7 @@
       // stimuli width, height
       var stimh = trial.target_size[0];
       var stimw = trial.target_size[1];
-      var hstimh = stimh / 2;
+      var hstimh = stimh / 2; 
       var hstimw = stimw / 2;
 
       // fixation location
@@ -70,7 +67,8 @@
       // possible stimulus locations on the circle
       var display_locs = [];
       var possible_display_locs = trial.set_size;
-      var random_offset = Math.floor(Math.random() * 360);
+      // var random_offset = Math.floor(Math.random() * 360);
+      var random_offset = 0;
       for (var i = 0; i < possible_display_locs; i++) {
         display_locs.push([
           Math.floor(paper_size / 2 + (cosd(random_offset + (i * (360 / possible_display_locs))) * radi) - hstimw),
@@ -82,17 +80,11 @@
       display_element.append($('<svg id="jspsych-nAFC-circle-svg" width=' + paper_size + ' height=' + paper_size + '></svg>'));
       var paper = Snap('#jspsych-nAFC-circle-svg');
 
-      show_fixation();
+      show_object_array();
 
       function show_fixation() {
         // show fixation
         var fixation = paper.image(trial.fixation_image, fix_loc[0], fix_loc[1], trial.fixation_size[0], trial.fixation_size[1]);
-
-        // wait
-        setTimeout(function() {
-          // after wait is over
-          show_object_array();
-        }, trial.timing_fixation);
       }
 
       function show_object_array() {
@@ -122,10 +114,15 @@
           end_trial(info.rt, correct, info.clickedObj); // todo: define rt/clickedObj
         }
 
+        function clear_display() {
+          paper.clear();
+        }
 
-      function clear_display() {
-        paper.clear();
-      }
+        // wait
+        setTimeout(function() {
+          // after wait is over
+          show_fixation();
+        }, trial.timing_fixation);        
 
       }
 
