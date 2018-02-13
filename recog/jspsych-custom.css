@@ -23,11 +23,16 @@ html {
 body {
 	margin: 0;
 	padding: 0;
+  background-color: rgb(127,127,127);
 }
 
 p {
     clear:both;
 }
+
+/*#jspsych-nAFC-circle-svg svg:hover {
+  scale: 1.5;
+}*/
 
 .very-small {
     font-size: 50%;

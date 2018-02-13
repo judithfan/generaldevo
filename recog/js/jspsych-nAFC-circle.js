@@ -21,7 +21,7 @@
 
     plugin.create = function(params) {
 
-      var trials = new Array(params.target_present.length);
+      var trials = new Array(params.options.length);
 
       for (var i = 0; i < trials.length; i++) {
         trials[i] = {};
@@ -37,6 +37,7 @@
         trials[i].target_absent_key = params.target_absent_key || 70;
         trials[i].timing_max_search = (typeof params.timing_max_search === 'undefined') ? -1 : params.timing_max_search;
         trials[i].timing_fixation = (typeof params.timing_fixation === 'undefined') ? 1000 : params.timing_fixation;
+        trials[i].options = params.options || ['./object/dogs_08_pug_0035.png'];
       }
 
       return trials;
@@ -90,17 +91,26 @@
         // wait
         setTimeout(function() {
           // after wait is over
-          show_search_array();
+          show_object_array();
         }, trial.timing_fixation);
       }
 
       function show_object_array() {
         var object_array_images = [];
+        img = new Array;
         for (var i = 0; i < display_locs.length; i++) {
-          var img = paper.image(trial.options[i], display_locs[i][0], display_locs[i][1], trial.target_size[0], trial.target_size[1]);
+          var img = paper.image(trial.options[i], display_locs[i][0], display_locs[i][1], trial.target_size[0], trial.target_size[1]);                
           object_array_images.push(img);
         }
         var trial_over = false;
+
+        images = paper.g(paper.selectAll('image'));
+
+        images.selectAll('image').forEach( function( el, index ) {
+           el.hover( function() { el.animate({ transform: 's1.5,1.5' }, 500, mina.easein); },
+                     function() { el.animate({ transform: 's1,1' }, 500 , mina.easein); }
+            )
+        } );
 
         var after_response = function(info) {
           trial_over = true;
