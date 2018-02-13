@@ -27,13 +27,12 @@
         trials[i] = {};
         trials[i].set_size = params.set_size[i];
         trials[i].target = params.target;
-        trials[i].foil = params.foil;
-        trials[i].fixation_image = params.fixation_image;
-        trials[i].target_size = params.target_size || [100, 100];
-        trials[i].fixation_size = params.fixation_size || [16, 16];
+        trials[i].sketch_image = params.sketch_image;
+        trials[i].object_size = params.object_size || [100, 100];
+        trials[i].sketch_size = params.sketch_size || [16, 16];
         trials[i].circle_diameter = params.circle_diameter || 250;
         trials[i].timing_max_search = (typeof params.timing_max_search === 'undefined') ? -1 : params.timing_max_search;
-        trials[i].timing_fixation = (typeof params.timing_fixation === 'undefined') ? 500 : params.timing_fixation;
+        trials[i].timing_sketch = (typeof params.timing_sketch === 'undefined') ? 500 : params.timing_sketch;
         trials[i].options = params.options || ['./object/dogs_08_pug_0035.png'];
       }
 
@@ -53,16 +52,16 @@
       // circle params
       var diam = trial.circle_diameter; // pixels
       var radi = diam / 2;
-      var paper_size = diam + trial.target_size[0];
+      var paper_size = diam + trial.object_size[0];
 
       // stimuli width, height
-      var stimh = trial.target_size[0];
-      var stimw = trial.target_size[1];
+      var stimh = trial.object_size[0];
+      var stimw = trial.object_size[1];
       var hstimh = stimh / 2; 
       var hstimw = stimw / 2;
 
-      // fixation location
-      var fix_loc = [Math.floor(paper_size / 2 - trial.fixation_size[0] / 2), Math.floor(paper_size / 2 - trial.fixation_size[1] / 2)];
+      // sketch location
+      var fix_loc = [Math.floor(paper_size / 2 - trial.sketch_size[0] / 2), Math.floor(paper_size / 2 - trial.sketch_size[1] / 2)];
 
       // possible stimulus locations on the circle
       var display_locs = [];
@@ -82,16 +81,16 @@
 
       show_object_array();
 
-      function show_fixation() {
-        // show fixation
-        var fixation = paper.image(trial.fixation_image, fix_loc[0], fix_loc[1], trial.fixation_size[0], trial.fixation_size[1]);
+      function show_sketch() {
+        // show sketch
+        var sketch = paper.image(trial.sketch_image, fix_loc[0], fix_loc[1], trial.sketch_size[0], trial.sketch_size[1]);
       }
 
       function show_object_array() {
         var object_array_images = [];
         img = new Array;
         for (var i = 0; i < display_locs.length; i++) {
-          var img = paper.image(trial.options[i], display_locs[i][0], display_locs[i][1], trial.target_size[0], trial.target_size[1]);                
+          var img = paper.image(trial.options[i], display_locs[i][0], display_locs[i][1], trial.object_size[0], trial.object_size[1]);                
           object_array_images.push(img);
         }
         var trial_over = false;
@@ -121,8 +120,8 @@
         // wait
         setTimeout(function() {
           // after wait is over
-          show_fixation();
-        }, trial.timing_fixation);        
+          show_sketch();
+        }, trial.timing_sketch);        
 
       }
 
