@@ -84,6 +84,7 @@
       function show_sketch() {
         // show sketch
         var sketch = paper.image(trial.sketch_image, fix_loc[0], fix_loc[1], trial.sketch_size[0], trial.sketch_size[1]);
+        var start_time = Date.now();
       }
 
       function show_object_array() {
@@ -95,22 +96,45 @@
         }
         var trial_over = false;
 
+        // group object images and add hover animation
         images = paper.g(paper.selectAll('image'));
-
         images.selectAll('image').forEach( function( el, index ) {
            el.hover( function() { el.animate({ transform: 's1.5,1.5' }, 500, mina.easein); },
                      function() { el.animate({ transform: 's1,1' }, 500 , mina.easein); }
             )
         } );
 
-        var after_response = function(info) {
+        // add click listener to the objects
+        var a = document.querySelectorAll('#jspsych-nAFC-circle-svg');
+        imgs = a[0].children[2].children;
+
+        for (var i = 0; i < display_locs.length; i++) {
+          imgs[i].addEventListener('click', function (e) {
+            var choice = e.currentTarget.getAttribute('href'); // don't use dataset for jsdom compatibility
+            after_response(choice);
+           })
+        }
+
+        // imgs.forEach( function( el, index ) {
+        //     console.log(el);
+        //     el.addEventListener('click', function (e) {
+        //     var choice = e.currentTarget.getAttribute('href'); // don't use dataset for jsdom compatibility
+        //     after_response(choice);
+        //    })
+        // } );
+
+        var after_response = function(choice) {
           trial_over = true;
+          // measure rt
+          var end_time = Date.now();
+          var rt = end_time - start_time;
+
           var correct = 0;
-          if (info.clickedObj == trial.target) {
+          if (choice == trial.target) {
             correct = 1;
           }
           clear_display();
-          end_trial(info.rt, correct, info.clickedObj); // todo: define rt/clickedObj
+          end_trial(rt, correct, choice); // todo: define rt/clickedObj
         }
 
         function clear_display() {
