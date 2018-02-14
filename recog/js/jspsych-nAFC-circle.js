@@ -122,13 +122,14 @@
           var start_time = Date.now();
           var end_time = Date.now();
           var rt = end_time - start_time;
-
+          console.log('choice',choice);
+          console.log('trial.target',trial.target);
           var correct = 0;
           if (choice == trial.target) {
             correct = 1;
           }
           clear_display();
-          end_trial(rt, correct, choice); // todo: define rt/clickedObj
+          end_trial(rt, correct, choice); 
         }
 
         function clear_display() {
@@ -143,9 +144,6 @@
 
       }
 
-
-
-
       function end_trial(rt, correct, key_press) {
 
         // data saving
@@ -155,7 +153,6 @@
           locations: JSON.stringify(display_locs),
           sketch: trial.sketch,
           target: trial.target
-
         };
 
         // this line merges together the trial_data object and the generic
