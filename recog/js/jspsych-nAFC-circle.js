@@ -52,7 +52,8 @@
 
       // circle params
       var diam = trial.circle_diameter; // pixels
-      var radi = diam / 2;
+      var shrinkage = 0.94; // amount by which to shrink the radius of the circle to not spill off paper
+      var radi = diam / 2 * shrinkage;
       var paper_size = diam + trial.object_size[0];
 
       // stimuli width, height
@@ -99,14 +100,14 @@
         // group object images and add hover animation
         images = paper.g(paper.selectAll('image'));
         images.selectAll('image').forEach( function( el, index ) {
-           el.hover( function() { el.animate({ transform: 's1.5,1.5' }, 500, mina.easein); },
+           el.hover( function() { el.animate({ transform: 's2,2' }, 500, mina.easein); },
                      function() { el.animate({ transform: 's1,1' }, 500 , mina.easein); }
             )
         } );
 
         // add click listener to the objects
-        var a = document.querySelectorAll('#jspsych-nAFC-circle-svg');
-        imgs = a[0].children[2].children;
+        var a = document.getElementsByTagName('g')[0];
+        imgs = a.children;
 
         for (var i = 0; i < display_locs.length; i++) {
           imgs[i].addEventListener('click', function (e) {
