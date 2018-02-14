@@ -25,7 +25,8 @@
 
       for (var i = 0; i < trials.length; i++) {
         trials[i] = {};
-        trials[i].set_size = params.set_size[i];
+        trials[i].set_size = params.set_size;
+        trials[i].num_trials = params.num_trials;
         trials[i].target = params.target;
         trials[i].sketch_image = params.sketch_image;
         trials[i].object_size = params.object_size || [100, 100];
@@ -84,7 +85,6 @@
       function show_sketch() {
         // show sketch
         var sketch = paper.image(trial.sketch_image, fix_loc[0], fix_loc[1], trial.sketch_size[0], trial.sketch_size[1]);
-        var start_time = Date.now();
       }
 
       function show_object_array() {
@@ -115,17 +115,10 @@
            })
         }
 
-        // imgs.forEach( function( el, index ) {
-        //     console.log(el);
-        //     el.addEventListener('click', function (e) {
-        //     var choice = e.currentTarget.getAttribute('href'); // don't use dataset for jsdom compatibility
-        //     after_response(choice);
-        //    })
-        // } );
-
         var after_response = function(choice) {
           trial_over = true;
           // measure rt
+          var start_time = Date.now();
           var end_time = Date.now();
           var rt = end_time - start_time;
 

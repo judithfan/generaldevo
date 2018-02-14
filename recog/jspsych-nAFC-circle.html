@@ -5,6 +5,7 @@
     <script src="js/snap.svg-min.js"></script>
     <script src="js/jspsych.js"></script>
     <script src="js/jspsych-nAFC-circle.js"></script>
+    <script src="js/lodash.min.js"></script>
     <link rel="stylesheet" href="./jspsych-custom.css"></link>
   </head>
   <body>
@@ -47,9 +48,10 @@
 
 sketches = ['gameID_0075-ad14e50c-f328-451b-82b0-2a7d3b392127_trial_1.png']
 
-var trials = {
+var trials = {  
   type: 'nAFC-circle',
   options: object_list,
+  num_trials: 5,
   sketch: './sketch/gameID_0075-ad14e50c-f328-451b-82b0-2a7d3b392127_trial_1.png',
   target: './object/birds_01_crow_0035.png',
   sketch_image: './sketch/gameID_0075-ad14e50c-f328-451b-82b0-2a7d3b392127_trial_2.png',
@@ -57,8 +59,8 @@ var trials = {
   object_size: [80,80],
   circle_diameter: 800,  
   objects: object_list,
-  sketches: sketches,
-  set_size: [32,32,32,32],
+  sketches: sketches,  
+  set_size: 32,
   dilation: 1.5
 };
 
