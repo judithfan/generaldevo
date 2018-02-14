@@ -27,8 +27,8 @@
         trials[i] = {};
         trials[i].set_size = params.set_size;
         trials[i].num_trials = params.num_trials;
-        trials[i].target = params.target;
-        trials[i].sketch_image = params.sketch_image;
+        trials[i].target = params.target[i];
+        trials[i].sketch_image = params.sketch_image[i];
         trials[i].object_size = params.object_size || [100, 100];
         trials[i].sketch_size = params.sketch_size || [16, 16];
         trials[i].circle_diameter = params.circle_diameter || 250;
